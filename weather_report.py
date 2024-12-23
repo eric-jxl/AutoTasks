@@ -64,6 +64,7 @@ def send_weather(access_token, weather):
     import datetime
     today_str = datetime.date.today().strftime("%Y年%m月%d日")
     for oid in openId.split(','):
+        weather_logger.info(oid)
         body = {
             "touser": oid.strip(),
             "template_id": weather_template_id.strip(),
@@ -82,7 +83,7 @@ def send_weather(access_token, weather):
         if rjson.get("errcode") == 0:
             weather_logger.info("Weather request OK")
         else:
-            weather_logger.error(f"Weather request{rjson['errcode']}{rjson['errmsg']}")
+            weather_logger.error(f"Weather request {rjson['errcode']}{rjson['errmsg']}")
 
 
 def weather_report(this_city):
