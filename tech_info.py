@@ -59,14 +59,14 @@ class TechInfo(object):
         return self.get_news("https://api.vvhan.com/api/hotlist/itNews")
 
     @staticmethod
-    def send_news(access_token, news, url):
+    def send_news(access_token, news, uri):
         import datetime
         today_str = datetime.date.today().strftime("%Y年%m月%d日")
         for oid in openId:
             body = {
                 "touser": oid.strip(),
                 "template_id": new_template_id.strip(),
-                "url": url,
+                "url": uri,
                 "data": {
                     "date": {"value": today_str, "color": "#173177"},
                     "name": {"value": news.get("name"), "color": "#173177"},
