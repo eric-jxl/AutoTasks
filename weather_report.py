@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 appID = os.environ.get("APP_ID")
 appSecret = os.environ.get("APP_SECRET")
-openId = os.environ.get("OPEN_ID", [])
+openId = os.environ.get("OPEN_ID")
 weather_template_id = os.environ.get("TEMPLATE_ID")
 
 weather_cache = {}
