@@ -60,8 +60,7 @@ def get_daily_love():
 def send_weather(access_token, weather):
     import datetime
     today_str = datetime.date.today().strftime("%Y年%m月%d日")
-    openid_list = list(map(str,list(openId)))
-    for oid in openid_list:
+    for oid in openId:
         body = {
             "touser": oid.strip(),
             "template_id": weather_template_id.strip(),
