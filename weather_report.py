@@ -1,6 +1,9 @@
 import os
 import requests
+import logging
 from bs4 import BeautifulSoup
+
+weather_logger = logging.getLogger("weather")
 
 appID = os.environ.get("APP_ID")
 appSecret = os.environ.get("APP_SECRET")
@@ -74,7 +77,12 @@ def send_weather(access_token, weather):
             }
         }
         url = f'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={access_token}'
-        requests.post(url, json=body)
+        res = requests.post(url, json=body)
+        rjson = res.json()
+        if rjson.get("errcode") == 0:
+            weather_logger.info("Weather request OK")
+        else:
+            weather_logger.error(f"Weather request{rjson['errcode']}{rjson['errmsg']}")
 
 
 def weather_report(this_city):

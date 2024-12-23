@@ -10,9 +10,12 @@
 import os
 
 import requests
+import logging
 
 from weather_report import get_access_token
 from weather_report import openId
+
+tech_logger = logging.getLogger('tech')
 
 new_template_id = os.environ.get('NEW_TEMPLATE_ID')
 
@@ -76,7 +79,12 @@ class TechInfo(object):
                 }
             }
             url = f'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={access_token}'
-            requests.post(url, json=body)
+            res = requests.post(url, json=body)
+            rjson = res.json()
+            if rjson.get("errcode") == 0:
+                tech_logger.info("Weather request OK")
+            else:
+                tech_logger.error(f"Weather request{rjson['errcode']}{rjson['errmsg']}")
 
 
 def main():
