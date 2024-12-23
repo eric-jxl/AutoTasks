@@ -1,9 +1,9 @@
 
-name: 京东签到薅羊毛
+name: 资讯推送
 
 on:
   schedule:
-    # 此处是UTC时间，对应北京时间早八点
+    # 设置启动时间，为 UTC 时间, UTC23点 对应北京时间早8点
     - cron : '00 00 * * *'
   workflow_dispatch:
 
@@ -14,7 +14,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    env:
+      TZ: Asia/Shanghai
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.12
@@ -27,6 +28,9 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run weather Report
       run: |
-        python daily_sign.py
+        python tech_info.py
       env:
-        JD_COOKIE: ${{ secrets.JD_COOKIE }}
+        APP_ID: ${{ secrets.APP_ID }}
+        APP_SECRET: ${{ secrets.APP_SECRET }}
+        OPEN_ID: ${{ secrets.OPEN_ID }}
+        NEW_TEMPLATE_ID: ${{ secrets.NEW_TEMPLATE_ID }}

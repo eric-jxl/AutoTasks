@@ -1,6 +1,5 @@
 import os
 import requests
-import json
 from bs4 import BeautifulSoup
 
 appID = os.environ.get("APP_ID")
@@ -72,7 +71,7 @@ def send_weather(access_token, weather):
             "weather": {"value": weather[2]},
             "temp": {"value": weather[1]},
             "wind_dir": {"value": weather[3]},
-            "today_note": {"value": get_daily_love()}
+            "today_note": {"value": get_daily_love()},
         }
     }
     url = f'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={access_token}'
