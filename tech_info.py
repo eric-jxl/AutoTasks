@@ -62,21 +62,21 @@ class TechInfo(object):
     def send_news(access_token, news, url):
         import datetime
         today_str = datetime.date.today().strftime("%Y年%m月%d日")
-
-        body = {
-            "touser": openId.strip(),
-            "template_id": new_template_id.strip(),
-            "url": url,
-            "data": {
-                "date": {"value": today_str, "color": "#173177"},
-                "name": {"value": news.get("name"), "color": "#173177"},
-                "update_time": {"value": news.get("update_time"), "color": "#173177"},
-                "news": {"value": news.get("news"), "color": "#173177"},
-                "ipinfo": {"value": get_ipinfo(), "color": "#173177"}
+        for oid in openId:
+            body = {
+                "touser": oid.strip(),
+                "template_id": new_template_id.strip(),
+                "url": url,
+                "data": {
+                    "date": {"value": today_str, "color": "#173177"},
+                    "name": {"value": news.get("name"), "color": "#173177"},
+                    "update_time": {"value": news.get("update_time"), "color": "#173177"},
+                    "news": {"value": news.get("news"), "color": "#173177"},
+                    "ipinfo": {"value": get_ipinfo(), "color": "#173177"}
+                }
             }
-        }
-        url = f'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={access_token}'
-        requests.post(url, json=body)
+            url = f'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={access_token}'
+            requests.post(url, json=body)
 
 
 def main():

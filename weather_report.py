@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 appID = os.environ.get("APP_ID")
 appSecret = os.environ.get("APP_SECRET")
-openId = os.environ.get("OPEN_ID")
+openId = os.environ.get("OPEN_ID", [])
 weather_template_id = os.environ.get("TEMPLATE_ID")
 
 weather_cache = {}
@@ -60,22 +60,21 @@ def get_daily_love():
 def send_weather(access_token, weather):
     import datetime
     today_str = datetime.date.today().strftime("%Y年%m月%d日")
-
-    body = {
-        "touser": openId.strip(),
-        "template_id": weather_template_id.strip(),
-        "url": "https://weixin.qq.com",
-        "data": {
-            "date": {"value": today_str},
-            "region": {"value": weather[0]},
-            "weather": {"value": weather[2]},
-            "temp": {"value": weather[1]},
-            "wind_dir": {"value": weather[3]},
-            "today_note": {"value": get_daily_love()},
+    for oid in openId:
+        body = {
+            "touser": oid.strip(),
+            "template_id": weather_template_id.strip(),
+            "data": {
+                "date": {"value": today_str},
+                "region": {"value": weather[0]},
+                "weather": {"value": weather[2]},
+                "temp": {"value": weather[1]},
+                "wind_dir": {"value": weather[3]},
+                "today_note": {"value": get_daily_love()},
+            }
         }
-    }
-    url = f'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={access_token}'
-    requests.post(url, json=body)
+        url = f'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={access_token}'
+        requests.post(url, json=body)
 
 
 def weather_report(this_city):
