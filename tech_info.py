@@ -62,7 +62,7 @@ class TechInfo(object):
     def send_news(access_token, news, uri):
         import datetime
         today_str = datetime.date.today().strftime("%Y年%m月%d日")
-        for oid in openId:
+        for oid in openId.split():
             body = {
                 "touser": oid.strip(),
                 "template_id": new_template_id.strip(),
