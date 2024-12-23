@@ -83,7 +83,7 @@ def send_weather(access_token, weather):
         if rjson.get("errcode") == 0:
             weather_logger.info("Weather request OK")
         else:
-            weather_logger.error(f"Weather request {rjson['errcode']}{rjson['errmsg']}")
+            weather_logger.error(f"Weather request {rjson['errcode']} {rjson['errmsg']}")
 
 
 def weather_report(this_city):

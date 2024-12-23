@@ -65,7 +65,8 @@ class TechInfo(object):
     def send_news(access_token, news, uri):
         import datetime
         today_str = datetime.date.today().strftime("%Y年%m月%d日")
-        for oid in openId.split():
+        for oid in openId.split(','):
+            print(oid)
             body = {
                 "touser": oid.strip(),
                 "template_id": new_template_id.strip(),
@@ -84,7 +85,7 @@ class TechInfo(object):
             if rjson.get("errcode") == 0:
                 tech_logger.info("Weather request OK")
             else:
-                tech_logger.error(f"Weather request{rjson['errcode']}{rjson['errmsg']}")
+                tech_logger.error(f"Weather request {rjson['errcode']} {rjson['errmsg']}")
 
 
 def main():
