@@ -66,7 +66,6 @@ class TechInfo(object):
         import datetime
         today_str = datetime.date.today().strftime("%Y年%m月%d日")
         for oid in openId.split(','):
-            print(oid)
             body = {
                 "touser": oid.strip(),
                 "template_id": new_template_id.strip(),

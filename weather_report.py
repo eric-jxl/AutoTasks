@@ -64,7 +64,6 @@ def send_weather(access_token, weather):
     import datetime
     today_str = datetime.date.today().strftime("%Y年%m月%d日")
     for oid in openId.split(','):
-        weather_logger.info(oid)
         body = {
             "touser": oid.strip(),
             "template_id": weather_template_id.strip(),
