@@ -39,7 +39,7 @@ def get_weather(my_city):
                     wind_day = " ".join(tds[-6].stripped_strings)
                     wind_night = " ".join(tds[-3].stripped_strings)
 
-                    temp = f"{low_temp}——{high_temp}摄氏度" if high_temp != "-" else f"{low_temp}摄氏度"
+                    temp = f"{low_temp}~{high_temp}摄氏度" if high_temp != "-" else f"{low_temp}摄氏度"
                     weather_typ = weather_typ_day if weather_typ_day != "-" else weather_type_night
                     wind = wind_day if wind_day != "--" else wind_night
 
