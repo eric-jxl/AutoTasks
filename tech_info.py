@@ -74,10 +74,10 @@ class TechInfo(object):
                 "template_id": new_template_id.strip(),
                 "url": uri,
                 "data": {
-                    "date": {"value": today_str},
+                    "date": {"value": today_str, "color": "#d76c25"},
                     "name": {"value": news.get("name")},
                     "update_time": {"value": news.get("update_time")},
-                    "news": {"value": news.get("news")},
+                    "news": {"value": news.get("news"), "color": "#d76c25"},
                     "ipinfo": {"value": get_ipinfo()}
                 }
             }

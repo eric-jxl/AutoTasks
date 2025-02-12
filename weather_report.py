@@ -43,7 +43,8 @@ def get_weather(my_city):
                     weather_typ = weather_typ_day if weather_typ_day != "-" else weather_type_night
                     wind = wind_day if wind_day != "--" else wind_night
 
-                    weather_cache[my_city] = (this_city, temp, weather_typ, wind)
+                    weather_cache[my_city] = (
+                        this_city, temp, weather_typ, wind)
                     return this_city, temp, weather_typ, wind
 
 
@@ -73,7 +74,7 @@ def send_weather(access_token, weather):
                 "weather": {"value": weather[2]},
                 "temp": {"value": weather[1]},
                 "wind_dir": {"value": weather[3]},
-                "today_note": {"value": get_daily_love()},
+                "today_note": {"value": get_daily_love(), "color": "#d76c25"},
             }
         }
         url = f'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={access_token}'
@@ -82,7 +83,8 @@ def send_weather(access_token, weather):
         if rjson.get("errcode") == 0:
             weather_logger.info("Weather request OK")
         else:
-            weather_logger.error(f"Weather request {rjson['errcode']} {rjson['errmsg']}")
+            weather_logger.error(
+                f"Weather request {rjson['errcode']} {rjson['errmsg']}")
 
 
 def weather_report(this_city):
