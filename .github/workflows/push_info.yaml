@@ -1,10 +1,10 @@
 
-name: 资讯推送
+name: 头条热点推送
 
 on:
   schedule:
     # 设置启动时间，为 UTC 时间, UTC23点 对应北京时间早8点
-    - cron : '00 00 * * *'
+    - cron : '0 1 * * *'
   workflow_dispatch:
 
 permissions:
@@ -24,11 +24,10 @@ jobs:
         python-version: "3.12"
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
+        python -m pip install -U pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Run Technology News Task
-      run: |
-        python tech_info.py
+    - name: Run Toutiao Task
+      run: python tech_info.py
       env:
         APP_ID: ${{ secrets.APP_ID }}
         APP_SECRET: ${{ secrets.APP_SECRET }}

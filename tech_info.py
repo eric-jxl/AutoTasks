@@ -28,7 +28,8 @@ def get_ipinfo():
     data = res.json()
     if data.get('success'):
         info = data.get("info")
-        country, prov, city, isp = info.get("country"), info.get("prov"), info.get("city"), info.get("isp")
+        country, prov, city, isp = info.get("country"), info.get(
+            "prov"), info.get("city"), info.get("isp")
         return f"{data.get('ip')}, {country}{prov}{city} {isp}"
     return
 
@@ -54,16 +55,14 @@ class TechInfo(object):
             summary = {
                 "name": f"{info.get('name')}-{info.get('subtitle')}",
                 "update_time": info.get("update_time"),
-                "news": "，".join([f"{n.get('title', '')}--{n.get('hot', '')}" for n in info.get('data')])
+                "news": "，".join([f"{n.get('title', '')}--{n.get('hot', '')}" for n in info.get('data', {})])
             }
             return summary
         return info
 
-    def get_douyin_new(self):
-        return self.get_news("https://api.vvhan.com/api/hotlist/douyinHot")
-
-    def get_tech_news(self):
-        return self.get_news("https://api.vvhan.com/api/hotlist/itNews")
+    def get_toutiao_news(self):
+        # 调用get_news方法，传入头条新闻的API地址，获取头条新闻数据
+        return self.get_news("https://api.vvhan.com/api/hotlist/toutiao")
 
     @staticmethod
     def send_news(access_token, news, uri):
@@ -75,11 +74,11 @@ class TechInfo(object):
                 "template_id": new_template_id.strip(),
                 "url": uri,
                 "data": {
-                    "date": {"value": today_str, "color": "#173177"},
-                    "name": {"value": news.get("name"), "color": "#173177"},
-                    "update_time": {"value": news.get("update_time"), "color": "#173177"},
-                    "news": {"value": news.get("news"), "color": "#173177"},
-                    "ipinfo": {"value": get_ipinfo(), "color": "#173177"}
+                    "date": {"value": today_str},
+                    "name": {"value": news.get("name")},
+                    "update_time": {"value": news.get("update_time")},
+                    "news": {"value": news.get("news")},
+                    "ipinfo": {"value": get_ipinfo()}
                 }
             }
             url = f'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={access_token}'
@@ -88,16 +87,16 @@ class TechInfo(object):
             if rjson.get("errcode") == 0:
                 tech_logger.info("Weather request OK")
             else:
-                tech_logger.error(f"Weather request {rjson['errcode']} {rjson['errmsg']}")
+                tech_logger.error(
+                    f"Weather request {rjson['errcode']} {rjson['errmsg']}")
 
 
 def main():
     access_token = get_access_token()
     t = TechInfo()
-    douyin = t.get_douyin_new()
-    tech = t.get_tech_news()
-    t.send_news(access_token, douyin, "https://api.vvhan.com/api/hotlist/douyinHot")
-    t.send_news(access_token, tech, "https://api.vvhan.com/api/hotlist/itNews")
+    tech = t.get_toutiao_news()
+    t.send_news(access_token, tech,
+                "https://api.vvhan.com/api/hotlist/toutiao")
 
 
 if __name__ == '__main__':
