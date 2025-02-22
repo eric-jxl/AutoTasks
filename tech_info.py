@@ -53,8 +53,8 @@ class TechInfo(object):
         info = common_getinfo(url)
         if info:
             summary = {
-                "name": f"{info.get('name')}-{info.get('subtitle')}",
-                "update_time": info.get("update_time"),
+                "name": f"{info.get('name','')}-{info.get('subtitle','')}",
+                "update_time": info.get("update_time", ''),
                 "news": "，".join([f"{n.get('title', '')}--{n.get('hot', '')}" for n in info.get('data', {})])
             }
             return summary
