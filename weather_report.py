@@ -9,14 +9,15 @@ appID = os.environ.get("APP_ID")
 appSecret = os.environ.get("APP_SECRET")
 openId = os.environ.get("OPEN_ID")
 weather_template_id = os.environ.get("TEMPLATE_ID")
+AMP_KEY = os.environ.get("AMP_KEY")
 
 
 def get_weather(city) -> dict:
 
     url = f"https://restapi.amap.com/v3/weather/weatherInfo"
     req = requests.get(
-        url, params={"key": os.environ.get("AMP_KEY"), "city": city, "output": "json"})
-    weather_logger.info(f"Requesting weather for {city},url:{req.url}")
+        url, params={"key": AMP_KEY, "city": city, "output": "json"})
+
     if req.json().get('status') == '1':
         return req.json().get('lives')[0]
     else:
