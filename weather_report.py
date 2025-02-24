@@ -50,8 +50,8 @@ def send_weather(access_token, weather: dict):
                 "date": {"value": today_str},
                 "region": {"value": weather.get('province') + weather.get('city')},
                 "weather": {"value": weather.get('weather')},
-                "temp": {"value": f"weather.get('temperature')℃"},
-                "wind_dir": {"value": f"{weather.get('winddirection')}风,\t风力:{weather.get('windpower')}级,\t湿度:{weather.get('humidity_float')}"},
+                "temp": {"value": f"{weather.get('temperature')}℃"},
+                "wind_dir": {"value": f"{weather.get('winddirection')}风，风力:{weather.get('windpower')}级，湿度:{weather.get('humidity_float')}"},
                 "today_note": {"value": get_daily_love()},
             }
         }
