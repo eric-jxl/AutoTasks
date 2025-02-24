@@ -16,7 +16,7 @@ def get_weather(city):
 
     url = f"https://restapi.amap.com/v3/weather/weatherInfo"
     req = requests.get(
-        url, parms={"key": AMP_KEY, "city": city, "output": "json"})
+        url, params={"key": AMP_KEY, "city": city, "output": "json"})
     if req.status_code != 1:
         weather_logger.error(
             f"Request failed with status code {req.status_code}")
