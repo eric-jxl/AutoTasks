@@ -8,22 +8,15 @@
 @DESC     :
 """
 import os
-import sys
-
 import requests
 import logging
 
 from weather_report import get_access_token
 from weather_report import openId
-
-
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from .utils import retry_on_exception
+from utils import retry_on_exception
 
 tech_logger = logging.getLogger('tech')
-
 new_template_id = os.environ.get('NEW_TEMPLATE_ID')
-
 Headers = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"}
 
