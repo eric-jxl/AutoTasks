@@ -2,6 +2,7 @@ import os
 import requests
 import logging
 from bs4 import BeautifulSoup
+from .utils import retry_on_exception
 
 weather_logger = logging.getLogger("weather")
 
@@ -12,6 +13,7 @@ weather_template_id = os.environ.get("TEMPLATE_ID")
 AMP_KEY = os.environ.get("AMP_KEY")
 
 
+@retry_on_exception(max_retries=3, initial_delay=1, backoff_factor=2, exceptions=(requests.exceptions.RequestException,))
 def get_weather(city) -> dict:
 
     url = f"https://restapi.amap.com/v3/weather/weatherInfo"

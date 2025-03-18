@@ -14,6 +14,7 @@ import logging
 
 from weather_report import get_access_token
 from weather_report import openId
+from .utils import retry_on_exception
 
 tech_logger = logging.getLogger('tech')
 
@@ -23,6 +24,7 @@ Headers = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"}
 
 
+@retry_on_exception(max_retries=3, initial_delay=1, backoff_factor=2, exceptions=(requests.exceptions.RequestException,))
 def get_ipinfo():
     res = requests.get("https://api.vvhan.com/api/ipInfo", headers=Headers)
     data = res.json()
@@ -64,6 +66,7 @@ class TechInfo(object):
         # 调用get_news方法，传入头条新闻的API地址，获取头条新闻数据
         return self.get_news("https://api.vvhan.com/api/hotlist/toutiao")
 
+    @retry_on_exception(max_retries=3, initial_delay=1, backoff_factor=2, exceptions=(requests.exceptions.RequestException,))
     @staticmethod
     def send_news(access_token, news, uri):
         import datetime
