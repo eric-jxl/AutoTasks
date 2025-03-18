@@ -8,13 +8,17 @@
 @DESC     :
 """
 import os
+import sys
 
 import requests
 import logging
 
 from weather_report import get_access_token
 from weather_report import openId
-from .utils import retry_on_exception
+
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from utils import retry_on_exception
 
 tech_logger = logging.getLogger('tech')
 
