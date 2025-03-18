@@ -1,11 +1,9 @@
 import os
-import sys
 import requests
 import logging
 from bs4 import BeautifulSoup
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from .utils import retry_on_exception
+from utils import retry_on_exception
 
 weather_logger = logging.getLogger("weather")
 
