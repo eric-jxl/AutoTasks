@@ -3,7 +3,7 @@ name: 头条热点推送
 
 on:
   schedule:
-    # 设置启动时间，为 UTC 时间, UTC23点 对应北京时间早8点
+    # 设置启动时间，为 UTC 时间, UTC 1点 对应北京时间早10点
     - cron : '0 1 * * *'
   workflow_dispatch:
 
