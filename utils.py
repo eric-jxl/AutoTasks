@@ -50,10 +50,3 @@ def fetch_data(url):
     return response.json()
 
 
-if __name__ == "__main__":
-    url = "http://sec-eversec.bilibili.co/api/util/open-api/list"
-    try:
-        data = fetch_data(url)
-        logger.info(f"请求成功，数据如下：{data}")
-    except requests.exceptions.RequestException as e:
-        logger.error(f"请求最终失败: {e}")
