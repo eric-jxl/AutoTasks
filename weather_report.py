@@ -45,27 +45,26 @@ def get_daily_love():
 def send_weather(access_token, weather: dict):
     import datetime
     today_str = datetime.date.today().strftime("%Y年%m月%d日")
-    for oid in openId.split(','):
-        body = {
-            "touser": oid.strip(),
-            "template_id": weather_template_id.strip(),
-            "data": {
-                "date": {"value": today_str},
-                "region": {"value": weather.get('province') + weather.get('city')},
-                "weather": {"value": weather.get('weather')},
-                "temp": {"value": f"{weather.get('temperature')}℃"},
-                "wind_dir": {"value": f"{weather.get('winddirection')}风，风力:{weather.get('windpower')}级，湿度:{weather.get('humidity_float')}"},
-                "today_note": {"value": get_daily_love()},
-            }
+    body = {
+        "touser": openId.replace(",",'|'),
+        "template_id": weather_template_id.strip(),
+        "data": {
+            "date": {"value": today_str},
+            "region": {"value": weather.get('province') + weather.get('city')},
+            "weather": {"value": weather.get('weather')},
+            "temp": {"value": f"{weather.get('temperature')}℃"},
+            "wind_dir": {"value": f"{weather.get('winddirection')}风，风力:{weather.get('windpower')}级，湿度:{weather.get('humidity_float')}"},
+            "today_note": {"value": get_daily_love()},
         }
-        url = f'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={access_token}'
-        res = requests.post(url, json=body)
-        rjson = res.json()
-        if rjson.get("errcode") == 0:
-            weather_logger.info("Weather request OK")
-        else:
-            weather_logger.error(
-                f"Weather request {rjson['errcode']} {rjson['errmsg']}")
+    }
+    url = f'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={access_token}'
+    res = requests.post(url, json=body)
+    rjson = res.json()
+    if rjson.get("errcode") == 0:
+        weather_logger.info("Weather request OK")
+    else:
+        weather_logger.error(
+            f"Weather request {rjson['errcode']} {rjson['errmsg']}")
 
 
 def weather_report(this_city):
