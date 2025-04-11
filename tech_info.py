@@ -68,27 +68,26 @@ class TechInfo(object):
     def send_news(access_token, news, uri):
         import datetime
         today_str = datetime.date.today().strftime("%Y年%m月%d日")
-        for oid in openId.split(','):
-            body = {
-                "touser": oid.strip(),
-                "template_id": new_template_id.strip(),
-                "url": uri,
-                "data": {
-                    "date": {"value": today_str, "color": "#d76c25"},
-                    "name": {"value": news.get("name")},
-                    "update_time": {"value": news.get("update_time")},
-                    "news": {"value": news.get("news"), "color": "#d76c25"},
-                    "ipinfo": {"value": get_ipinfo()}
-                }
+        body = {
+            "touser": openId.replace(",","|"),
+            "template_id": new_template_id.strip(),
+            "url": uri,
+            "data": {
+                "date": {"value": today_str, "color": "#d76c25"},
+                "name": {"value": news.get("name")},
+                "update_time": {"value": news.get("update_time")},
+                "news": {"value": news.get("news"), "color": "#d76c25"},
+                "ipinfo": {"value": get_ipinfo()}
             }
-            url = f'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={access_token}'
-            res = requests.post(url, json=body)
-            rjson = res.json()
-            if rjson.get("errcode") == 0:
-                tech_logger.info("Weather request OK")
-            else:
-                tech_logger.error(
-                    f"Weather request {rjson['errcode']} {rjson['errmsg']}")
+        }
+        url = f'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={access_token}'
+        res = requests.post(url, json=body)
+        rjson = res.json()
+        if rjson.get("errcode") == 0:
+            tech_logger.info("Weather request OK")
+        else:
+            tech_logger.error(
+                f"Weather request {rjson['errcode']} {rjson['errmsg']}")
 
 
 def main():
