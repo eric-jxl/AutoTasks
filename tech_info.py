@@ -7,13 +7,14 @@
 @IDE      : PyCharm
 @DESC     :
 """
-import os
-import requests
 import logging
+import os
 
+import requests
+
+from utils import retry_on_exception
 from weather_report import get_access_token
 from weather_report import openId
-from utils import retry_on_exception
 
 tech_logger = logging.getLogger('tech')
 new_template_id = os.environ.get('NEW_TEMPLATE_ID')
@@ -70,7 +71,7 @@ class TechInfo(object):
         today_str = datetime.date.today().strftime("%Y年%m月%d日")
         for rid in openId.split(','):
             body = {
-                "touser": rid,
+                "touser": rid.replace(" ",""),
                 "template_id": new_template_id.strip(),
                 "url": uri,
                 "data": {

@@ -1,7 +1,8 @@
-import os
-import requests
 import logging
+import os
+
 from bs4 import BeautifulSoup
+import requests
 
 from utils import retry_on_exception
 
@@ -47,7 +48,7 @@ def send_weather(access_token, weather: dict):
     today_str = datetime.date.today().strftime("%Y年%m月%d日")
     for rid in openId.split(','):
         body = {
-            "touser": rid,
+            "touser": rid.replace(' ', ''),
             "template_id": weather_template_id.strip(),
             "data": {
                 "date": {"value": today_str},
