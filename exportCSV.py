@@ -97,3 +97,12 @@ class CsvExport:
                 csv_writer.write_row(row)
 
         return csv_writer.value
+
+if __name__ == '__main__':
+    fields = ['name', 'age', 'gender']
+    rows = [
+        {'name': 'Alice', 'age': 25, 'gender': 'Female'},
+        {'name': 'Bob', 'age': 30, 'gender': 'Male'},
+        {'name': 'Charlie', 'age': 35, 'gender': 'Male'}
+    ]
+    CsvExport().from_data(fields, rows)
