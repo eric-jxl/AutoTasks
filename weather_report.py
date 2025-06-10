@@ -1,7 +1,5 @@
 import logging
 import os
-
-from bs4 import BeautifulSoup
 import requests
 
 from utils import retry_on_exception
