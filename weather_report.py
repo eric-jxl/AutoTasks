@@ -37,9 +37,9 @@ def get_access_token():
 
 
 def get_daily_love():
-    url = "https://api.lovelive.tools/api/SweetNothings/Serialization/Json"
+    url = "https://api.vvhan.com/api/ian/rand?type=json"
     r = requests.get(url)
-    sentence = r.json()['returnObj'][0]
+    sentence = r.json()['data']["content"]
     return sentence
 
 
