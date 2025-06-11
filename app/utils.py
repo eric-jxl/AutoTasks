@@ -1,6 +1,7 @@
-import time
-import requests
 import logging
+import time
+
+import requests
 
 # 配置日志
 logging.basicConfig(level=logging.INFO)

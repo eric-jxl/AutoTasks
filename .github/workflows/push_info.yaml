@@ -27,7 +27,7 @@ jobs:
         python -m pip install -U pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run Toutiao Task
-      run: python tech_info.py
+      run: python app/tech_info.py
       env:
         APP_ID: ${{ secrets.APP_ID }}
         APP_SECRET: ${{ secrets.APP_SECRET }}
