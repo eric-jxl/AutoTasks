@@ -17,6 +17,7 @@ def retry_on_exception(max_retries=3, initial_delay=1, backoff_factor=2, excepti
     :param exceptions: 需要捕获并重试的异常类型
     :return: 装饰器
     """
+
     def decorator(func):
         def wrapper(*args, **kwargs):
             retries = 0
@@ -34,10 +35,12 @@ def retry_on_exception(max_retries=3, initial_delay=1, backoff_factor=2, excepti
                 f"函数 '{func.__name__}' 达到最大重试次数 ({max_retries})，最终失败。")
 
         return wrapper
+
     return decorator
 
 
-@retry_on_exception(max_retries=5, initial_delay=1, backoff_factor=2, exceptions=(requests.exceptions.RequestException,))
+@retry_on_exception(max_retries=5, initial_delay=1, backoff_factor=2,
+                    exceptions=(requests.exceptions.RequestException,))
 def fetch_data(url):
     """
     发送GET请求到指定的URL并返回JSON响应。
@@ -50,3 +53,6 @@ def fetch_data(url):
     return response.json()
 
 
+if __name__ == '__main__':
+    from pprint import pprint
+    pprint(fetch_data('https://api.vvhan.com/api/hotlist/toutiao'))
