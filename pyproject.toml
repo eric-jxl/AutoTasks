@@ -7,3 +7,14 @@ requires-python = ">=3.9"
 dependencies = [
     "requests>=2.32.4",
 ]
+
+[dependency-groups]
+dev = [
+    "requests>=2.32.4",
+]
+production = []
+
+[[tool.uv.index]]
+url = "https://mirrors.aliyun.com/pypi/simple"
+default = true
+
