@@ -20,13 +20,16 @@ dependencies = [
 dev = [
     { name = "requests" },
 ]
+production = [
+    { name = "requests" },
+]
 
 [package.metadata]
 requires-dist = [{ name = "requests", specifier = ">=2.32.4" }]
 
 [package.metadata.requires-dev]
 dev = [{ name = "requests", specifier = ">=2.32.4" }]
-production = []
+production = [{ name = "requests", specifier = ">=2.32.4" }]
 
 [[package]]
 name = "certifi"
