@@ -63,7 +63,7 @@ class TechInfo(object):
 
     def get_toutiao_news(self):
         # 调用get_news方法，传入头条新闻的API地址，获取头条新闻数据
-        return self.get_news("https://www.toutiao.com/hot-event/hot-board/?origin=toutiao_pc")
+        return self.get_news("https://api.vvhan.com/api/hotlist/toutiao")
     
     @staticmethod
     @retry_on_exception(max_retries=3, initial_delay=1, backoff_factor=2, exceptions=(requests.exceptions.RequestException,))
