@@ -25,11 +25,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install -U pip 
-        if [ -f pyproject.toml ] && [ -f uv.lock ]; then
-          pip install uv
-          uv pip install -e ".[production]" 
-        fi
-        # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run Toutiao Task
       run: python app/tech_info.py
       env:
