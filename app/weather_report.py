@@ -29,19 +29,20 @@ def get_weather(city) -> dict:
         return {}
 
 
+@retry_on_exception(max_retries=3, initial_delay=1, backoff_factor=2, exceptions=(requests.exceptions.RequestException,))
 def get_access_token():
     url = f'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={appID.strip()}&secret={appSecret.strip()}'
     response = requests.get(url).json()
     return response.get('access_token')
 
-
+@retry_on_exception(max_retries=3, initial_delay=1, backoff_factor=2, exceptions=(requests.exceptions.RequestException,))
 def get_daily_love():
     url = "https://api.vvhan.com/api/ian/rand?type=json"
     r = requests.get(url)
-    sentence = r.json()['data']["content"]
-    return sentence
+    sentence = r.json().get('data').get("content")
+    return sentence or "无"
 
-
+@retry_on_exception(max_retries=3, initial_delay=1, backoff_factor=2, exceptions=(requests.exceptions.RequestException,))
 def send_weather(access_token, weather: dict):
     import datetime
     today_str = datetime.date.today().strftime("%Y年%m月%d日")
